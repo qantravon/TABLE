@@ -1,0 +1,8 @@
+--------------- Rebuild Started: 07/03/2013 18:50:49 Project: main.c, Configuration: ARM GCC 4.4.1 Debug ---------------
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\main.lst -ffunction-sections -c .\main.c -o .\CortexM3\ARM_GCC_441\Debug\main.o
+.\main.c:66: error: conflicting types for 'interpretBuffer'
+.\main.c:15: note: previous declaration of 'interpretBuffer' was here
+.\main.c: In function 'interpretBuffer':
+.\main.c:71: warning: statement with no effect
+The command 'arm-none-eabi-gcc.exe' failed with exit code '1'.
+--------------- Rebuild Failed: 07/03/2013 18:50:49 ---------------

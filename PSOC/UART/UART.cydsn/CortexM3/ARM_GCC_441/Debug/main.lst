@@ -1,0 +1,1472 @@
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"main.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 FA000000 		.text
+  20      02005300 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.comm	averages,256,4
+  24              		.section	.text.initAvgs,"ax",%progbits
+  25              		.align	2
+  26              		.global	initAvgs
+  27              		.thumb
+  28              		.thumb_func
+  29              		.type	initAvgs, %function
+  30              	initAvgs:
+  31              	.LFB29:
+  32              		.file 1 ".\\main.c"
+   1:.\main.c      **** #include <device.h>
+   2:.\main.c      **** #include <stdio.h>
+   3:.\main.c      **** 
+   4:.\main.c      **** void storeAndCalculateAverages();
+   5:.\main.c      **** void sendValues();
+   6:.\main.c      **** 
+   7:.\main.c      **** unsigned int averages[8][8];
+   8:.\main.c      **** //int vCount;
+   9:.\main.c      **** 
+  10:.\main.c      **** void initAvgs() //initialize averages array
+  11:.\main.c      **** {
+  33              		.loc 1 11 0
+  34              		.cfi_startproc
+  35              		@ args = 0, pretend = 0, frame = 8
+  36              		@ frame_needed = 1, uses_anonymous_args = 0
+  37              		@ link register save eliminated.
+  38 0000 80B4     		push	{r7}
+  39              	.LCFI0:
+  40              		.cfi_def_cfa_offset 4
+  41 0002 83B0     		sub	sp, sp, #12
+  42              	.LCFI1:
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 2
+
+
+  43              		.cfi_def_cfa_offset 16
+  44 0004 00AF     		add	r7, sp, #0
+  45              		.cfi_offset 7, -4
+  46              	.LCFI2:
+  47              		.cfi_def_cfa_register 7
+  12:.\main.c      ****     int i = 0;
+  48              		.loc 1 12 0
+  49 0006 4FF00003 		mov	r3, #0
+  50 000a 3B60     		str	r3, [r7, #0]
+  13:.\main.c      ****     int j = 0;
+  51              		.loc 1 13 0
+  52 000c 4FF00003 		mov	r3, #0
+  53 0010 7B60     		str	r3, [r7, #4]
+  14:.\main.c      ****     for(i = 0; i < 8; ++i)
+  54              		.loc 1 14 0
+  55 0012 4FF00003 		mov	r3, #0
+  56 0016 3B60     		str	r3, [r7, #0]
+  57 0018 1BE0     		b	.L2
+  58              	.L5:
+  15:.\main.c      ****     {
+  16:.\main.c      ****         for(j = 0; j < 8; ++j)
+  59              		.loc 1 16 0
+  60 001a 4FF00003 		mov	r3, #0
+  61 001e 7B60     		str	r3, [r7, #4]
+  62 0020 10E0     		b	.L3
+  63              	.L4:
+  17:.\main.c      ****         {
+  18:.\main.c      ****             averages[i][j] = 0;
+  64              		.loc 1 18 0
+  65 0022 3968     		ldr	r1, [r7, #0]
+  66 0024 7A68     		ldr	r2, [r7, #4]
+  67 0026 40F20003 		movw	r3, #:lower16:averages
+  68 002a C0F20003 		movt	r3, #:upper16:averages
+  69 002e 4FEAC101 		lsl	r1, r1, #3
+  70 0032 0A44     		add	r2, r1, r2
+  71 0034 4FF00001 		mov	r1, #0
+  72 0038 43F82210 		str	r1, [r3, r2, lsl #2]
+  73              		.loc 1 16 0
+  74 003c 7B68     		ldr	r3, [r7, #4]
+  75 003e 03F10103 		add	r3, r3, #1
+  76 0042 7B60     		str	r3, [r7, #4]
+  77              	.L3:
+  78 0044 7B68     		ldr	r3, [r7, #4]
+  79 0046 072B     		cmp	r3, #7
+  80 0048 EBDD     		ble	.L4
+  81              		.loc 1 14 0
+  82 004a 3B68     		ldr	r3, [r7, #0]
+  83 004c 03F10103 		add	r3, r3, #1
+  84 0050 3B60     		str	r3, [r7, #0]
+  85              	.L2:
+  86 0052 3B68     		ldr	r3, [r7, #0]
+  87 0054 072B     		cmp	r3, #7
+  88 0056 E0DD     		ble	.L5
+  19:.\main.c      ****         }
+  20:.\main.c      ****     }
+  21:.\main.c      **** }
+  89              		.loc 1 21 0
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 3
+
+
+  90 0058 07F10C07 		add	r7, r7, #12
+  91 005c BD46     		mov	sp, r7
+  92 005e 80BC     		pop	{r7}
+  93 0060 7047     		bx	lr
+  94              		.cfi_endproc
+  95              	.LFE29:
+  96              		.size	initAvgs, .-initAvgs
+  97 0062 00BF     		.section	.rodata
+  98              		.align	2
+  99              	.LC0:
+ 100 0000 50726F63 		.ascii	"Processing\000"
+ 100      65737369 
+ 100      6E6700
+ 101 000b 00       		.align	2
+ 102              	.LC1:
+ 103 000c 20202000 		.ascii	"   \000"
+ 104              		.section	.text.main,"ax",%progbits
+ 105              		.align	2
+ 106              		.global	main
+ 107              		.thumb
+ 108              		.thumb_func
+ 109              		.type	main, %function
+ 110              	main:
+ 111              	.LFB30:
+  22:.\main.c      **** //19200
+  23:.\main.c      **** void main()
+  24:.\main.c      **** {
+ 112              		.loc 1 24 0
+ 113              		.cfi_startproc
+ 114              		@ args = 0, pretend = 0, frame = 8
+ 115              		@ frame_needed = 1, uses_anonymous_args = 0
+ 116 0000 80B5     		push	{r7, lr}
+ 117              	.LCFI3:
+ 118              		.cfi_def_cfa_offset 8
+ 119 0002 82B0     		sub	sp, sp, #8
+ 120              	.LCFI4:
+ 121              		.cfi_def_cfa_offset 16
+ 122 0004 00AF     		add	r7, sp, #0
+ 123              		.cfi_offset 14, -4
+ 124              		.cfi_offset 7, -8
+ 125              	.LCFI5:
+ 126              		.cfi_def_cfa_register 7
+  25:.\main.c      **** 	CYGlobalIntEnable; //enable intterupts
+ 127              		.loc 1 25 0
+ 128              	@ 25 ".\main.c" 1
+ 129 0006 62B6     		CPSIE   i
+ 130              	@ 0 "" 2
+  26:.\main.c      **** 	
+  27:.\main.c      **** 	UART_Start();
+ 131              		.loc 1 27 0
+ 132              		.thumb
+ 133 0008 FFF7FEFF 		bl	UART_Start
+  28:.\main.c      **** 	//ADC_DelSig_Start();
+  29:.\main.c      **** 	//ADC_DelSig_StartConvert();
+  30:.\main.c      **** 	LCD_Char_1_Start();
+ 134              		.loc 1 30 0
+ 135 000c FFF7FEFF 		bl	LCD_Char_1_Start
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 4
+
+
+  31:.\main.c      **** 	LCD_Char_1_ClearDisplay();
+ 136              		.loc 1 31 0
+ 137 0010 4FF00100 		mov	r0, #1
+ 138 0014 FFF7FEFF 		bl	LCD_Char_1_WriteControl
+  32:.\main.c      ****    
+  33:.\main.c      ****     int counter = 0;
+ 139              		.loc 1 33 0
+ 140 0018 4FF00003 		mov	r3, #0
+ 141 001c 7B60     		str	r3, [r7, #4]
+ 142              	.L11:
+  34:.\main.c      ****     
+  35:.\main.c      **** 	while(1)
+  36:.\main.c      **** 	{
+  37:.\main.c      **** 		if(UART_ReadRxStatus() == UART_RX_STS_FIFO_NOTEMPTY)	//if the buffer has data available
+ 143              		.loc 1 37 0
+ 144 001e FFF7FEFF 		bl	UART_ReadRxStatus
+ 145 0022 0346     		mov	r3, r0
+ 146 0024 202B     		cmp	r3, #32
+ 147 0026 3FD1     		bne	.L8
+  38:.\main.c      **** 		{
+  39:.\main.c      **** 			initAvgs();
+ 148              		.loc 1 39 0
+ 149 0028 FFF7FEFF 		bl	initAvgs
+  40:.\main.c      ****             LCD_Char_1_Position(0,14);
+ 150              		.loc 1 40 0
+ 151 002c 4FF00000 		mov	r0, #0
+ 152 0030 4FF00E01 		mov	r1, #14
+ 153 0034 FFF7FEFF 		bl	LCD_Char_1_Position
+  41:.\main.c      **** 			LCD_Char_1_PutChar('R');
+ 154              		.loc 1 41 0
+ 155 0038 4FF05200 		mov	r0, #82
+ 156 003c FFF7FEFF 		bl	LCD_Char_1_PutChar
+  42:.\main.c      **** 			LCD_Char_1_Position(1,0);
+ 157              		.loc 1 42 0
+ 158 0040 4FF00100 		mov	r0, #1
+ 159 0044 4FF00001 		mov	r1, #0
+ 160 0048 FFF7FEFF 		bl	LCD_Char_1_Position
+  43:.\main.c      **** 			LCD_Char_1_PrintString("Processing");
+ 161              		.loc 1 43 0
+ 162 004c 40F20000 		movw	r0, #:lower16:.LC0
+ 163 0050 C0F20000 		movt	r0, #:upper16:.LC0
+ 164 0054 FFF7FEFF 		bl	LCD_Char_1_PrintString
+  44:.\main.c      ****             
+  45:.\main.c      ****             //CyDelay(500);
+  46:.\main.c      **** 			storeAndCalculateAverages();
+ 165              		.loc 1 46 0
+ 166 0058 FFF7FEFF 		bl	storeAndCalculateAverages
+  47:.\main.c      ****             UART_ClearRxBuffer();
+ 167              		.loc 1 47 0
+ 168 005c FFF7FEFF 		bl	UART_ClearRxBuffer
+  48:.\main.c      **** 			
+  49:.\main.c      ****             LCD_Char_1_Position(0,14);
+ 169              		.loc 1 49 0
+ 170 0060 4FF00000 		mov	r0, #0
+ 171 0064 4FF00E01 		mov	r1, #14
+ 172 0068 FFF7FEFF 		bl	LCD_Char_1_Position
+  50:.\main.c      **** 			LCD_Char_1_PutChar('W');
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 5
+
+
+ 173              		.loc 1 50 0
+ 174 006c 4FF05700 		mov	r0, #87
+ 175 0070 FFF7FEFF 		bl	LCD_Char_1_PutChar
+  51:.\main.c      **** 			LCD_Char_1_Position(0,0);
+ 176              		.loc 1 51 0
+ 177 0074 4FF00000 		mov	r0, #0
+ 178 0078 4FF00001 		mov	r1, #0
+ 179 007c FFF7FEFF 		bl	LCD_Char_1_Position
+  52:.\main.c      **** 			LCD_Char_1_PrintString("   ");
+ 180              		.loc 1 52 0
+ 181 0080 40F20000 		movw	r0, #:lower16:.LC1
+ 182 0084 C0F20000 		movt	r0, #:upper16:.LC1
+ 183 0088 FFF7FEFF 		bl	LCD_Char_1_PrintString
+  53:.\main.c      **** 			UART_ClearTxBuffer();
+ 184              		.loc 1 53 0
+ 185 008c FFF7FEFF 		bl	UART_ClearTxBuffer
+  54:.\main.c      ****             sendValues();
+ 186              		.loc 1 54 0
+ 187 0090 FFF7FEFF 		bl	sendValues
+  55:.\main.c      **** 			UART_ClearTxBuffer();
+ 188              		.loc 1 55 0
+ 189 0094 FFF7FEFF 		bl	UART_ClearTxBuffer
+  56:.\main.c      **** 			LCD_Char_1_ClearDisplay();
+ 190              		.loc 1 56 0
+ 191 0098 4FF00100 		mov	r0, #1
+ 192 009c FFF7FEFF 		bl	LCD_Char_1_WriteControl
+  57:.\main.c      ****             counter = 0;
+ 193              		.loc 1 57 0
+ 194 00a0 4FF00003 		mov	r3, #0
+ 195 00a4 7B60     		str	r3, [r7, #4]
+  58:.\main.c      **** 		}
+  59:.\main.c      **** 		else if(counter > 5000)
+  60:.\main.c      ****         {
+  61:.\main.c      ****             CySoftwareReset();
+  62:.\main.c      ****         }
+  63:.\main.c      ****         else
+  64:.\main.c      **** 		{
+  65:.\main.c      **** 			//vCount = ADC_DelSig_GetResult16();  //0000-040D
+  66:.\main.c      **** 			//vCount = (vCount-5)/2;
+  67:.\main.c      **** 			/*LCD_Char_1_ClearDisplay();
+  68:.\main.c      **** 			LCD_Char_1_PrintNumber(vCount);
+  69:.\main.c      **** 			LCD_Char_1_Position(1,0);
+  70:.\main.c      **** 			LCD_Char_1_PrintString("Waiting");
+  71:.\main.c      ****             LCD_Char_1_Position(1,8);
+  72:.\main.c      **** 			LCD_Char_1_PrintNumber(counter);*/
+  73:.\main.c      ****             counter++;
+  74:.\main.c      ****             
+  75:.\main.c      ****             //UART_ClearRxBuffer();
+  76:.\main.c      **** 		}
+  77:.\main.c      **** 	}
+ 196              		.loc 1 77 0
+ 197 00a6 BAE7     		b	.L11
+ 198              	.L8:
+ 199              		.loc 1 59 0
+ 200 00a8 7A68     		ldr	r2, [r7, #4]
+ 201 00aa 41F28833 		movw	r3, #5000
+ 202 00ae 9A42     		cmp	r2, r3
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 6
+
+
+ 203 00b0 02DD     		ble	.L10
+ 204              		.loc 1 61 0
+ 205 00b2 FFF7FEFF 		bl	CySoftwareReset
+ 206              		.loc 1 77 0
+ 207 00b6 B2E7     		b	.L11
+ 208              	.L10:
+ 209              		.loc 1 73 0
+ 210 00b8 7B68     		ldr	r3, [r7, #4]
+ 211 00ba 03F10103 		add	r3, r3, #1
+ 212 00be 7B60     		str	r3, [r7, #4]
+ 213              		.loc 1 77 0
+ 214 00c0 ADE7     		b	.L11
+ 215              		.cfi_endproc
+ 216              	.LFE30:
+ 217              		.size	main, .-main
+ 218 00c2 00BF     		.section	.rodata
+ 219              		.align	2
+ 220              	.LC2:
+ 221 0010 4F766572 		.ascii	"Overflow\000"
+ 221      666C6F77 
+ 221      00
+ 222              		.section	.text.storeAndCalculateAverages,"ax",%progbits
+ 223              		.align	2
+ 224              		.global	storeAndCalculateAverages
+ 225              		.thumb
+ 226              		.thumb_func
+ 227              		.type	storeAndCalculateAverages, %function
+ 228              	storeAndCalculateAverages:
+ 229              	.LFB31:
+  78:.\main.c      **** }
+  79:.\main.c      **** 
+  80:.\main.c      **** void storeAndCalculateAverages() 
+  81:.\main.c      **** {
+ 230              		.loc 1 81 0
+ 231              		.cfi_startproc
+ 232              		@ args = 0, pretend = 0, frame = 16
+ 233              		@ frame_needed = 1, uses_anonymous_args = 0
+ 234 0000 80B5     		push	{r7, lr}
+ 235              	.LCFI6:
+ 236              		.cfi_def_cfa_offset 8
+ 237 0002 84B0     		sub	sp, sp, #16
+ 238              	.LCFI7:
+ 239              		.cfi_def_cfa_offset 24
+ 240 0004 00AF     		add	r7, sp, #0
+ 241              		.cfi_offset 14, -4
+ 242              		.cfi_offset 7, -8
+ 243              	.LCFI8:
+ 244              		.cfi_def_cfa_register 7
+  82:.\main.c      **** 	//while(UART_ReadRxStatus == UART_RX_STS_FIFO_NOTEMPTY)
+  83:.\main.c      **** 	int j;
+  84:.\main.c      **** 	int i;
+  85:.\main.c      ****     uint8 readchar;
+  86:.\main.c      **** 
+  87:.\main.c      ****     //storing the sums of each pixel in 60x40 square
+  88:.\main.c      ****     LCD_Char_1_Position(0,15);
+ 245              		.loc 1 88 0
+ 246 0006 4FF00000 		mov	r0, #0
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 7
+
+
+ 247 000a 4FF00F01 		mov	r1, #15
+ 248 000e FFF7FEFF 		bl	LCD_Char_1_Position
+  89:.\main.c      **** 	LCD_Char_1_PrintNumber(1);
+ 249              		.loc 1 89 0
+ 250 0012 4FF00100 		mov	r0, #1
+ 251 0016 FFF7FEFF 		bl	LCD_Char_1_PrintDecUint16
+  90:.\main.c      **** 	for(j = 0; j < 120; j++)		//each row
+ 252              		.loc 1 90 0
+ 253 001a 4FF00003 		mov	r3, #0
+ 254 001e 7B60     		str	r3, [r7, #4]
+ 255 0020 75E0     		b	.L14
+ 256              	.L21:
+  91:.\main.c      **** 	{
+  92:.\main.c      **** 		for(i = 0; i < 140; i++)	//each column
+ 257              		.loc 1 92 0
+ 258 0022 4FF00003 		mov	r3, #0
+ 259 0026 BB60     		str	r3, [r7, #8]
+ 260 0028 6AE0     		b	.L15
+ 261              	.L20:
+  93:.\main.c      **** 		{
+  94:.\main.c      ****             if((UART_ReadRxStatus() == UART_RX_STS_OVERRUN) || (UART_ReadRxStatus() == UART_RX_STS_
+ 262              		.loc 1 94 0
+ 263 002a FFF7FEFF 		bl	UART_ReadRxStatus
+ 264 002e 0346     		mov	r3, r0
+ 265 0030 102B     		cmp	r3, #16
+ 266 0032 04D0     		beq	.L16
+ 267 0034 FFF7FEFF 		bl	UART_ReadRxStatus
+ 268 0038 0346     		mov	r3, r0
+ 269 003a 802B     		cmp	r3, #128
+ 270 003c 0AD1     		bne	.L17
+ 271              	.L16:
+  95:.\main.c      ****             {
+  96:.\main.c      ****                 while(1)
+  97:.\main.c      ****                 {
+  98:.\main.c      ****                     LCD_Char_1_ClearDisplay();
+ 272              		.loc 1 98 0
+ 273 003e 4FF00100 		mov	r0, #1
+ 274 0042 FFF7FEFF 		bl	LCD_Char_1_WriteControl
+  99:.\main.c      ****             		LCD_Char_1_PrintString("Overflow");
+ 275              		.loc 1 99 0
+ 276 0046 40F20000 		movw	r0, #:lower16:.LC2
+ 277 004a C0F20000 		movt	r0, #:upper16:.LC2
+ 278 004e FFF7FEFF 		bl	LCD_Char_1_PrintString
+ 100:.\main.c      ****                 }
+ 279              		.loc 1 100 0
+ 280 0052 F4E7     		b	.L16
+ 281              	.L17:
+ 101:.\main.c      ****             }
+ 102:.\main.c      ****             if(UART_ReadRxStatus() == UART_RX_STS_FIFO_NOTEMPTY)	//if the buffer has data available
+ 282              		.loc 1 102 0
+ 283 0054 FFF7FEFF 		bl	UART_ReadRxStatus
+ 284 0058 0346     		mov	r3, r0
+ 285 005a 202B     		cmp	r3, #32
+ 286 005c 0AD1     		bne	.L18
+ 103:.\main.c      **** 		    {
+ 104:.\main.c      ****                 LCD_Char_1_Position(0,11);
+ 287              		.loc 1 104 0
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 8
+
+
+ 288 005e 4FF00000 		mov	r0, #0
+ 289 0062 4FF00B01 		mov	r1, #11
+ 290 0066 FFF7FEFF 		bl	LCD_Char_1_Position
+ 105:.\main.c      ****                 LCD_Char_1_PutChar('T');
+ 291              		.loc 1 105 0
+ 292 006a 4FF05400 		mov	r0, #84
+ 293 006e FFF7FEFF 		bl	LCD_Char_1_PutChar
+ 294 0072 09E0     		b	.L19
+ 295              	.L18:
+ 106:.\main.c      ****             }
+ 107:.\main.c      ****             else
+ 108:.\main.c      ****             {
+ 109:.\main.c      ****                 LCD_Char_1_Position(0,11);
+ 296              		.loc 1 109 0
+ 297 0074 4FF00000 		mov	r0, #0
+ 298 0078 4FF00B01 		mov	r1, #11
+ 299 007c FFF7FEFF 		bl	LCD_Char_1_Position
+ 110:.\main.c      ****                 LCD_Char_1_PutChar('F');
+ 300              		.loc 1 110 0
+ 301 0080 4FF04600 		mov	r0, #70
+ 302 0084 FFF7FEFF 		bl	LCD_Char_1_PutChar
+ 303              	.L19:
+ 111:.\main.c      ****             }
+ 112:.\main.c      ****             readchar = UART_GetChar();
+ 304              		.loc 1 112 0
+ 305 0088 FFF7FEFF 		bl	UART_GetChar
+ 306 008c 0346     		mov	r3, r0
+ 307 008e FB73     		strb	r3, [r7, #15]
+ 113:.\main.c      **** 			averages[j/15][i/17] += readchar;
+ 308              		.loc 1 113 0
+ 309 0090 7B68     		ldr	r3, [r7, #4]
+ 310 0092 48F68902 		movw	r2, #:lower16:-2004318071
+ 311 0096 C8F68802 		movt	r2, #:upper16:-2004318071
+ 312 009a 82FB0302 		smull	r0, r2, r2, r3
+ 313 009e 1A44     		add	r2, r2, r3
+ 314 00a0 4FEAE202 		asr	r2, r2, #3
+ 315 00a4 4FEAE373 		asr	r3, r3, #31
+ 316 00a8 C3EB0202 		rsb	r2, r3, r2
+ 317 00ac 9446     		mov	ip, r2
+ 318 00ae B968     		ldr	r1, [r7, #8]
+ 319 00b0 47F67903 		movw	r3, #:lower16:2021161081
+ 320 00b4 C7F67803 		movt	r3, #:upper16:2021161081
+ 321 00b8 83FB0103 		smull	r0, r3, r3, r1
+ 322 00bc 4FEAE300 		asr	r0, r3, #3
+ 323 00c0 4FEAE173 		asr	r3, r1, #31
+ 324 00c4 C3EB0003 		rsb	r3, r3, r0
+ 325 00c8 1846     		mov	r0, r3
+ 326 00ca 1146     		mov	r1, r2
+ 327 00cc 1A46     		mov	r2, r3
+ 328 00ce 40F20003 		movw	r3, #:lower16:averages
+ 329 00d2 C0F20003 		movt	r3, #:upper16:averages
+ 330 00d6 4FEAC101 		lsl	r1, r1, #3
+ 331 00da 0A44     		add	r2, r1, r2
+ 332 00dc 53F82220 		ldr	r2, [r3, r2, lsl #2]
+ 333 00e0 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 334 00e2 02EB0301 		add	r1, r2, r3
+ 335 00e6 40F20003 		movw	r3, #:lower16:averages
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 9
+
+
+ 336 00ea C0F20003 		movt	r3, #:upper16:averages
+ 337 00ee 4FEACC02 		lsl	r2, ip, #3
+ 338 00f2 0244     		add	r2, r2, r0
+ 339 00f4 43F82210 		str	r1, [r3, r2, lsl #2]
+ 340              		.loc 1 92 0
+ 341 00f8 BB68     		ldr	r3, [r7, #8]
+ 342 00fa 03F10103 		add	r3, r3, #1
+ 343 00fe BB60     		str	r3, [r7, #8]
+ 344              	.L15:
+ 345 0100 BB68     		ldr	r3, [r7, #8]
+ 346 0102 8B2B     		cmp	r3, #139
+ 347 0104 91DD     		ble	.L20
+ 348              		.loc 1 90 0
+ 349 0106 7B68     		ldr	r3, [r7, #4]
+ 350 0108 03F10103 		add	r3, r3, #1
+ 351 010c 7B60     		str	r3, [r7, #4]
+ 352              	.L14:
+ 353 010e 7B68     		ldr	r3, [r7, #4]
+ 354 0110 772B     		cmp	r3, #119
+ 355 0112 86DD     		ble	.L21
+ 114:.\main.c      **** 			//CyDelay(200);
+ 115:.\main.c      **** 			/*LCD_Char_1_Position(0,0);        	   
+ 116:.\main.c      **** 			LCD_Char_1_PrintNumber(i);
+ 117:.\main.c      ****             LCD_Char_1_Position(0,4);
+ 118:.\main.c      **** 			LCD_Char_1_PrintString("   ");
+ 119:.\main.c      **** 			LCD_Char_1_Position(0,4);
+ 120:.\main.c      ****             LCD_Char_1_PrintNumber(averages[0][0]);*/
+ 121:.\main.c      ****         }
+ 122:.\main.c      **** 	}
+ 123:.\main.c      **** 	UART_ClearRxBuffer();
+ 356              		.loc 1 123 0
+ 357 0114 FFF7FEFF 		bl	UART_ClearRxBuffer
+ 124:.\main.c      **** 	LCD_Char_1_Position(0,15);
+ 358              		.loc 1 124 0
+ 359 0118 4FF00000 		mov	r0, #0
+ 360 011c 4FF00F01 		mov	r1, #15
+ 361 0120 FFF7FEFF 		bl	LCD_Char_1_Position
+ 125:.\main.c      **** 	LCD_Char_1_PrintNumber(2);
+ 362              		.loc 1 125 0
+ 363 0124 4FF00200 		mov	r0, #2
+ 364 0128 FFF7FEFF 		bl	LCD_Char_1_PrintDecUint16
+ 126:.\main.c      ****     
+ 127:.\main.c      ****     for(j = 0; j < 8; j++)		//each row
+ 365              		.loc 1 127 0
+ 366 012c 4FF00003 		mov	r3, #0
+ 367 0130 7B60     		str	r3, [r7, #4]
+ 368 0132 2DE0     		b	.L22
+ 369              	.L25:
+ 128:.\main.c      **** 	{
+ 129:.\main.c      **** 		for(i = 0; i < 8; i++)	//each column
+ 370              		.loc 1 129 0
+ 371 0134 4FF00003 		mov	r3, #0
+ 372 0138 BB60     		str	r3, [r7, #8]
+ 373 013a 22E0     		b	.L23
+ 374              	.L24:
+ 130:.\main.c      **** 		{
+ 131:.\main.c      **** 			/*CyDelay(200);
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 10
+
+
+ 132:.\main.c      **** 			LCD_Char_1_Position(0,0);    
+ 133:.\main.c      **** 			LCD_Char_1_PrintNumber(j);
+ 134:.\main.c      **** 			LCD_Char_1_Position(0,1);
+ 135:.\main.c      **** 			LCD_Char_1_PrintNumber(i);
+ 136:.\main.c      ****             LCD_Char_1_Position(0,4);
+ 137:.\main.c      **** 			LCD_Char_1_PrintString("      ");
+ 138:.\main.c      **** 			LCD_Char_1_Position(0,4);
+ 139:.\main.c      ****             LCD_Char_1_PrintNumber(averages[0][0]);*/
+ 140:.\main.c      **** 			averages[j][i] /= 300;	
+ 375              		.loc 1 140 0
+ 376 013c 7868     		ldr	r0, [r7, #4]
+ 377 013e BA68     		ldr	r2, [r7, #8]
+ 378 0140 D7F804C0 		ldr	ip, [r7, #4]
+ 379 0144 B968     		ldr	r1, [r7, #8]
+ 380 0146 40F20003 		movw	r3, #:lower16:averages
+ 381 014a C0F20003 		movt	r3, #:upper16:averages
+ 382 014e 4FEACC0C 		lsl	ip, ip, #3
+ 383 0152 6144     		add	r1, ip, r1
+ 384 0154 53F82110 		ldr	r1, [r3, r1, lsl #2]
+ 385 0158 48F2B513 		movw	r3, #:lower16:458129845
+ 386 015c C1F64E33 		movt	r3, #:upper16:458129845
+ 387 0160 A3FB01C3 		umull	ip, r3, r3, r1
+ 388 0164 4FEA5311 		lsr	r1, r3, #5
+ 389 0168 40F20003 		movw	r3, #:lower16:averages
+ 390 016c C0F20003 		movt	r3, #:upper16:averages
+ 391 0170 4FEAC000 		lsl	r0, r0, #3
+ 392 0174 0244     		add	r2, r0, r2
+ 393 0176 43F82210 		str	r1, [r3, r2, lsl #2]
+ 394              		.loc 1 129 0
+ 395 017a BB68     		ldr	r3, [r7, #8]
+ 396 017c 03F10103 		add	r3, r3, #1
+ 397 0180 BB60     		str	r3, [r7, #8]
+ 398              	.L23:
+ 399 0182 BB68     		ldr	r3, [r7, #8]
+ 400 0184 072B     		cmp	r3, #7
+ 401 0186 D9DD     		ble	.L24
+ 402              		.loc 1 127 0
+ 403 0188 7B68     		ldr	r3, [r7, #4]
+ 404 018a 03F10103 		add	r3, r3, #1
+ 405 018e 7B60     		str	r3, [r7, #4]
+ 406              	.L22:
+ 407 0190 7B68     		ldr	r3, [r7, #4]
+ 408 0192 072B     		cmp	r3, #7
+ 409 0194 CEDD     		ble	.L25
+ 141:.\main.c      **** 		}
+ 142:.\main.c      **** 	}
+ 143:.\main.c      **** }
+ 410              		.loc 1 143 0
+ 411 0196 07F11007 		add	r7, r7, #16
+ 412 019a BD46     		mov	sp, r7
+ 413 019c 80BD     		pop	{r7, pc}
+ 414              		.cfi_endproc
+ 415              	.LFE31:
+ 416              		.size	storeAndCalculateAverages, .-storeAndCalculateAverages
+ 417 019e 00BF     		.section	.rodata
+ 418 0019 000000   		.align	2
+ 419              	.LC3:
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 11
+
+
+ 420 001c 436F6D70 		.ascii	"Complete!\000"
+ 420      6C657465 
+ 420      2100
+ 421 0026 0000     		.align	2
+ 422              	.LC4:
+ 423 0028 4661696C 		.ascii	"Failed!\000"
+ 423      65642100 
+ 424              		.section	.text.sendValues,"ax",%progbits
+ 425              		.align	2
+ 426              		.global	sendValues
+ 427              		.thumb
+ 428              		.thumb_func
+ 429              		.type	sendValues, %function
+ 430              	sendValues:
+ 431              	.LFB32:
+ 144:.\main.c      **** 
+ 145:.\main.c      **** void sendValues()
+ 146:.\main.c      **** {
+ 432              		.loc 1 146 0
+ 433              		.cfi_startproc
+ 434              		@ args = 0, pretend = 0, frame = 72
+ 435              		@ frame_needed = 1, uses_anonymous_args = 0
+ 436 0000 80B5     		push	{r7, lr}
+ 437              	.LCFI9:
+ 438              		.cfi_def_cfa_offset 8
+ 439 0002 92B0     		sub	sp, sp, #72
+ 440              	.LCFI10:
+ 441              		.cfi_def_cfa_offset 80
+ 442 0004 00AF     		add	r7, sp, #0
+ 443              		.cfi_offset 14, -4
+ 444              		.cfi_offset 7, -8
+ 445              	.LCFI11:
+ 446              		.cfi_def_cfa_register 7
+ 147:.\main.c      **** 	int j;
+ 148:.\main.c      **** 	int i;
+ 149:.\main.c      ****     uint8 sendArray[64];
+ 150:.\main.c      **** 	for(j = 0; j < 8; j++)		//each row
+ 447              		.loc 1 150 0
+ 448 0006 4FF00003 		mov	r3, #0
+ 449 000a 3B64     		str	r3, [r7, #64]
+ 450 000c 34E0     		b	.L28
+ 451              	.L33:
+ 151:.\main.c      **** 	{
+ 152:.\main.c      **** 		for(i = 0; i < 8; i++)	//each column
+ 452              		.loc 1 152 0
+ 453 000e 4FF00003 		mov	r3, #0
+ 454 0012 7B64     		str	r3, [r7, #68]
+ 455 0014 29E0     		b	.L29
+ 456              	.L32:
+ 153:.\main.c      **** 		{
+ 154:.\main.c      ****             if(averages[j][i] > 10)
+ 457              		.loc 1 154 0
+ 458 0016 396C     		ldr	r1, [r7, #64]
+ 459 0018 7A6C     		ldr	r2, [r7, #68]
+ 460 001a 40F20003 		movw	r3, #:lower16:averages
+ 461 001e C0F20003 		movt	r3, #:upper16:averages
+ 462 0022 4FEAC101 		lsl	r1, r1, #3
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 12
+
+
+ 463 0026 0A44     		add	r2, r1, r2
+ 464 0028 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 465 002c 0A2B     		cmp	r3, #10
+ 466 002e 0CD9     		bls	.L30
+ 155:.\main.c      **** 			{
+ 156:.\main.c      **** 				sendArray[j+(i*8)] = 1;
+ 467              		.loc 1 156 0
+ 468 0030 7B6C     		ldr	r3, [r7, #68]
+ 469 0032 4FEAC302 		lsl	r2, r3, #3
+ 470 0036 3B6C     		ldr	r3, [r7, #64]
+ 471 0038 1344     		add	r3, r2, r3
+ 472 003a 07F14802 		add	r2, r7, #72
+ 473 003e 1344     		add	r3, r2, r3
+ 474 0040 4FF00102 		mov	r2, #1
+ 475 0044 03F8482C 		strb	r2, [r3, #-72]
+ 476 0048 0BE0     		b	.L31
+ 477              	.L30:
+ 157:.\main.c      **** 			}
+ 158:.\main.c      **** 			else
+ 159:.\main.c      **** 			{
+ 160:.\main.c      **** 				sendArray[j+(i*8)] = 0;
+ 478              		.loc 1 160 0
+ 479 004a 7B6C     		ldr	r3, [r7, #68]
+ 480 004c 4FEAC302 		lsl	r2, r3, #3
+ 481 0050 3B6C     		ldr	r3, [r7, #64]
+ 482 0052 1344     		add	r3, r2, r3
+ 483 0054 07F14802 		add	r2, r7, #72
+ 484 0058 1344     		add	r3, r2, r3
+ 485 005a 4FF00002 		mov	r2, #0
+ 486 005e 03F8482C 		strb	r2, [r3, #-72]
+ 487              	.L31:
+ 488              		.loc 1 152 0
+ 489 0062 7B6C     		ldr	r3, [r7, #68]
+ 490 0064 03F10103 		add	r3, r3, #1
+ 491 0068 7B64     		str	r3, [r7, #68]
+ 492              	.L29:
+ 493 006a 7B6C     		ldr	r3, [r7, #68]
+ 494 006c 072B     		cmp	r3, #7
+ 495 006e D2DD     		ble	.L32
+ 496              		.loc 1 150 0
+ 497 0070 3B6C     		ldr	r3, [r7, #64]
+ 498 0072 03F10103 		add	r3, r3, #1
+ 499 0076 3B64     		str	r3, [r7, #64]
+ 500              	.L28:
+ 501 0078 3B6C     		ldr	r3, [r7, #64]
+ 502 007a 072B     		cmp	r3, #7
+ 503 007c C7DD     		ble	.L33
+ 161:.\main.c      **** 			}
+ 162:.\main.c      **** 			/*CyDelay(200);
+ 163:.\main.c      **** 			LCD_Char_1_Position(0,0);    
+ 164:.\main.c      **** 			LCD_Char_1_PrintNumber(j);
+ 165:.\main.c      **** 			LCD_Char_1_Position(0,1);
+ 166:.\main.c      **** 			LCD_Char_1_PrintNumber(i);
+ 167:.\main.c      ****             LCD_Char_1_Position(0,4);
+ 168:.\main.c      **** 			LCD_Char_1_PrintString("     ");
+ 169:.\main.c      **** 			LCD_Char_1_Position(0,4);*/
+ 170:.\main.c      ****             //LCD_Char_1_PrintNumber(sendArray[i+(j*8)]);
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 13
+
+
+ 171:.\main.c      **** 		}
+ 172:.\main.c      **** 	}
+ 173:.\main.c      ****     UART_PutArray(sendArray,64);
+ 504              		.loc 1 173 0
+ 505 007e 3B46     		mov	r3, r7
+ 506 0080 1846     		mov	r0, r3
+ 507 0082 4FF04001 		mov	r1, #64
+ 508 0086 FFF7FEFF 		bl	UART_PutArray
+ 174:.\main.c      ****     if(UART_ReadTxStatus() == UART_TX_STS_COMPLETE)
+ 509              		.loc 1 174 0
+ 510 008a FFF7FEFF 		bl	UART_ReadTxStatus
+ 511 008e 0346     		mov	r3, r0
+ 512 0090 012B     		cmp	r3, #1
+ 513 0092 0CD1     		bne	.L34
+ 175:.\main.c      ****     {
+ 176:.\main.c      ****         LCD_Char_1_Position(0,0);
+ 514              		.loc 1 176 0
+ 515 0094 4FF00000 		mov	r0, #0
+ 516 0098 4FF00001 		mov	r1, #0
+ 517 009c FFF7FEFF 		bl	LCD_Char_1_Position
+ 177:.\main.c      ****         LCD_Char_1_PrintString("Complete!");
+ 518              		.loc 1 177 0
+ 519 00a0 40F20000 		movw	r0, #:lower16:.LC3
+ 520 00a4 C0F20000 		movt	r0, #:upper16:.LC3
+ 521 00a8 FFF7FEFF 		bl	LCD_Char_1_PrintString
+ 522 00ac 0BE0     		b	.L36
+ 523              	.L34:
+ 178:.\main.c      ****     }
+ 179:.\main.c      ****     else
+ 180:.\main.c      ****     {
+ 181:.\main.c      ****         LCD_Char_1_Position(0,0);
+ 524              		.loc 1 181 0
+ 525 00ae 4FF00000 		mov	r0, #0
+ 526 00b2 4FF00001 		mov	r1, #0
+ 527 00b6 FFF7FEFF 		bl	LCD_Char_1_Position
+ 182:.\main.c      ****         LCD_Char_1_PrintString("Failed!");
+ 528              		.loc 1 182 0
+ 529 00ba 40F20000 		movw	r0, #:lower16:.LC4
+ 530 00be C0F20000 		movt	r0, #:upper16:.LC4
+ 531 00c2 FFF7FEFF 		bl	LCD_Char_1_PrintString
+ 532              	.L36:
+ 183:.\main.c      ****     }
+ 184:.\main.c      **** }
+ 533              		.loc 1 184 0
+ 534 00c6 07F14807 		add	r7, r7, #72
+ 535 00ca BD46     		mov	sp, r7
+ 536 00cc 80BD     		pop	{r7, pc}
+ 537              		.cfi_endproc
+ 538              	.LFE32:
+ 539              		.size	sendValues, .-sendValues
+ 540 00ce 00BF     		.text
+ 541              	.Letext0:
+ 542              		.section	.debug_loc,"",%progbits
+ 543              	.Ldebug_loc0:
+ 544              	.LLST0:
+ 545 0000 00000000 		.4byte	.LFB29
+ 546 0004 02000000 		.4byte	.LCFI0
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 14
+
+
+ 547 0008 0100     		.2byte	0x1
+ 548 000a 5D       		.byte	0x5d
+ 549 000b 02000000 		.4byte	.LCFI0
+ 550 000f 04000000 		.4byte	.LCFI1
+ 551 0013 0200     		.2byte	0x2
+ 552 0015 7D       		.byte	0x7d
+ 553 0016 04       		.sleb128 4
+ 554 0017 04000000 		.4byte	.LCFI1
+ 555 001b 06000000 		.4byte	.LCFI2
+ 556 001f 0200     		.2byte	0x2
+ 557 0021 7D       		.byte	0x7d
+ 558 0022 10       		.sleb128 16
+ 559 0023 06000000 		.4byte	.LCFI2
+ 560 0027 62000000 		.4byte	.LFE29
+ 561 002b 0200     		.2byte	0x2
+ 562 002d 77       		.byte	0x77
+ 563 002e 10       		.sleb128 16
+ 564 002f 00000000 		.4byte	0x0
+ 565 0033 00000000 		.4byte	0x0
+ 566              	.LLST1:
+ 567 0037 00000000 		.4byte	.LFB30
+ 568 003b 02000000 		.4byte	.LCFI3
+ 569 003f 0100     		.2byte	0x1
+ 570 0041 5D       		.byte	0x5d
+ 571 0042 02000000 		.4byte	.LCFI3
+ 572 0046 04000000 		.4byte	.LCFI4
+ 573 004a 0200     		.2byte	0x2
+ 574 004c 7D       		.byte	0x7d
+ 575 004d 08       		.sleb128 8
+ 576 004e 04000000 		.4byte	.LCFI4
+ 577 0052 06000000 		.4byte	.LCFI5
+ 578 0056 0200     		.2byte	0x2
+ 579 0058 7D       		.byte	0x7d
+ 580 0059 10       		.sleb128 16
+ 581 005a 06000000 		.4byte	.LCFI5
+ 582 005e C2000000 		.4byte	.LFE30
+ 583 0062 0200     		.2byte	0x2
+ 584 0064 77       		.byte	0x77
+ 585 0065 10       		.sleb128 16
+ 586 0066 00000000 		.4byte	0x0
+ 587 006a 00000000 		.4byte	0x0
+ 588              	.LLST2:
+ 589 006e 00000000 		.4byte	.LFB31
+ 590 0072 02000000 		.4byte	.LCFI6
+ 591 0076 0100     		.2byte	0x1
+ 592 0078 5D       		.byte	0x5d
+ 593 0079 02000000 		.4byte	.LCFI6
+ 594 007d 04000000 		.4byte	.LCFI7
+ 595 0081 0200     		.2byte	0x2
+ 596 0083 7D       		.byte	0x7d
+ 597 0084 08       		.sleb128 8
+ 598 0085 04000000 		.4byte	.LCFI7
+ 599 0089 06000000 		.4byte	.LCFI8
+ 600 008d 0200     		.2byte	0x2
+ 601 008f 7D       		.byte	0x7d
+ 602 0090 18       		.sleb128 24
+ 603 0091 06000000 		.4byte	.LCFI8
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 15
+
+
+ 604 0095 9E010000 		.4byte	.LFE31
+ 605 0099 0200     		.2byte	0x2
+ 606 009b 77       		.byte	0x77
+ 607 009c 18       		.sleb128 24
+ 608 009d 00000000 		.4byte	0x0
+ 609 00a1 00000000 		.4byte	0x0
+ 610              	.LLST3:
+ 611 00a5 00000000 		.4byte	.LFB32
+ 612 00a9 02000000 		.4byte	.LCFI9
+ 613 00ad 0100     		.2byte	0x1
+ 614 00af 5D       		.byte	0x5d
+ 615 00b0 02000000 		.4byte	.LCFI9
+ 616 00b4 04000000 		.4byte	.LCFI10
+ 617 00b8 0200     		.2byte	0x2
+ 618 00ba 7D       		.byte	0x7d
+ 619 00bb 08       		.sleb128 8
+ 620 00bc 04000000 		.4byte	.LCFI10
+ 621 00c0 06000000 		.4byte	.LCFI11
+ 622 00c4 0300     		.2byte	0x3
+ 623 00c6 7D       		.byte	0x7d
+ 624 00c7 D000     		.sleb128 80
+ 625 00c9 06000000 		.4byte	.LCFI11
+ 626 00cd CE000000 		.4byte	.LFE32
+ 627 00d1 0300     		.2byte	0x3
+ 628 00d3 77       		.byte	0x77
+ 629 00d4 D000     		.sleb128 80
+ 630 00d6 00000000 		.4byte	0x0
+ 631 00da 00000000 		.4byte	0x0
+ 632              		.file 2 "./Generated_Source/PSoC5/core_cm3.h"
+ 633              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 634              		.section	.debug_info
+ 635 0000 B1010000 		.4byte	0x1b1
+ 636 0004 0200     		.2byte	0x2
+ 637 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 638 000a 04       		.byte	0x4
+ 639 000b 01       		.uleb128 0x1
+ 640 000c 88000000 		.4byte	.LASF21
+ 641 0010 01       		.byte	0x1
+ 642 0011 D1000000 		.4byte	.LASF22
+ 643 0015 15010000 		.4byte	.LASF23
+ 644 0019 00000000 		.4byte	0x0
+ 645 001d 00000000 		.4byte	0x0
+ 646 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 647 0025 00000000 		.4byte	.Ldebug_line0
+ 648 0029 02       		.uleb128 0x2
+ 649 002a 01       		.byte	0x1
+ 650 002b 06       		.byte	0x6
+ 651 002c F6000000 		.4byte	.LASF0
+ 652 0030 02       		.uleb128 0x2
+ 653 0031 01       		.byte	0x1
+ 654 0032 08       		.byte	0x8
+ 655 0033 94000000 		.4byte	.LASF1
+ 656 0037 02       		.uleb128 0x2
+ 657 0038 02       		.byte	0x2
+ 658 0039 05       		.byte	0x5
+ 659 003a 02010000 		.4byte	.LASF2
+ 660 003e 02       		.uleb128 0x2
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 16
+
+
+ 661 003f 02       		.byte	0x2
+ 662 0040 07       		.byte	0x7
+ 663 0041 0E000000 		.4byte	.LASF3
+ 664 0045 02       		.uleb128 0x2
+ 665 0046 04       		.byte	0x4
+ 666 0047 05       		.byte	0x5
+ 667 0048 B1000000 		.4byte	.LASF4
+ 668 004c 02       		.uleb128 0x2
+ 669 004d 04       		.byte	0x4
+ 670 004e 07       		.byte	0x7
+ 671 004f 4D000000 		.4byte	.LASF5
+ 672 0053 02       		.uleb128 0x2
+ 673 0054 08       		.byte	0x8
+ 674 0055 05       		.byte	0x5
+ 675 0056 00000000 		.4byte	.LASF6
+ 676 005a 02       		.uleb128 0x2
+ 677 005b 08       		.byte	0x8
+ 678 005c 07       		.byte	0x7
+ 679 005d BA000000 		.4byte	.LASF7
+ 680 0061 03       		.uleb128 0x3
+ 681 0062 04       		.byte	0x4
+ 682 0063 05       		.byte	0x5
+ 683 0064 696E7400 		.ascii	"int\000"
+ 684 0068 02       		.uleb128 0x2
+ 685 0069 04       		.byte	0x4
+ 686 006a 07       		.byte	0x7
+ 687 006b 21000000 		.4byte	.LASF8
+ 688 006f 04       		.uleb128 0x4
+ 689 0070 33000000 		.4byte	.LASF24
+ 690 0074 03       		.byte	0x3
+ 691 0075 4C       		.byte	0x4c
+ 692 0076 30000000 		.4byte	0x30
+ 693 007a 02       		.uleb128 0x2
+ 694 007b 04       		.byte	0x4
+ 695 007c 04       		.byte	0x4
+ 696 007d 79000000 		.4byte	.LASF9
+ 697 0081 02       		.uleb128 0x2
+ 698 0082 08       		.byte	0x8
+ 699 0083 04       		.byte	0x4
+ 700 0084 DA000000 		.4byte	.LASF10
+ 701 0088 02       		.uleb128 0x2
+ 702 0089 01       		.byte	0x1
+ 703 008a 08       		.byte	0x8
+ 704 008b A2000000 		.4byte	.LASF11
+ 705 008f 05       		.uleb128 0x5
+ 706 0090 04       		.byte	0x4
+ 707 0091 07       		.byte	0x7
+ 708 0092 06       		.uleb128 0x6
+ 709 0093 01       		.byte	0x1
+ 710 0094 0C010000 		.4byte	.LASF12
+ 711 0098 01       		.byte	0x1
+ 712 0099 0A       		.byte	0xa
+ 713 009a 00000000 		.4byte	.LFB29
+ 714 009e 62000000 		.4byte	.LFE29
+ 715 00a2 00000000 		.4byte	.LLST0
+ 716 00a6 C3000000 		.4byte	0xc3
+ 717 00aa 07       		.uleb128 0x7
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 17
+
+
+ 718 00ab 6900     		.ascii	"i\000"
+ 719 00ad 01       		.byte	0x1
+ 720 00ae 0C       		.byte	0xc
+ 721 00af 61000000 		.4byte	0x61
+ 722 00b3 02       		.byte	0x2
+ 723 00b4 91       		.byte	0x91
+ 724 00b5 70       		.sleb128 -16
+ 725 00b6 07       		.uleb128 0x7
+ 726 00b7 6A00     		.ascii	"j\000"
+ 727 00b9 01       		.byte	0x1
+ 728 00ba 0D       		.byte	0xd
+ 729 00bb 61000000 		.4byte	0x61
+ 730 00bf 02       		.byte	0x2
+ 731 00c0 91       		.byte	0x91
+ 732 00c1 74       		.sleb128 -12
+ 733 00c2 00       		.byte	0x0
+ 734 00c3 06       		.uleb128 0x6
+ 735 00c4 01       		.byte	0x1
+ 736 00c5 2E000000 		.4byte	.LASF13
+ 737 00c9 01       		.byte	0x1
+ 738 00ca 17       		.byte	0x17
+ 739 00cb 00000000 		.4byte	.LFB30
+ 740 00cf C2000000 		.4byte	.LFE30
+ 741 00d3 37000000 		.4byte	.LLST1
+ 742 00d7 EA000000 		.4byte	0xea
+ 743 00db 08       		.uleb128 0x8
+ 744 00dc E1000000 		.4byte	.LASF14
+ 745 00e0 01       		.byte	0x1
+ 746 00e1 21       		.byte	0x21
+ 747 00e2 61000000 		.4byte	0x61
+ 748 00e6 02       		.byte	0x2
+ 749 00e7 91       		.byte	0x91
+ 750 00e8 74       		.sleb128 -12
+ 751 00e9 00       		.byte	0x0
+ 752 00ea 06       		.uleb128 0x6
+ 753 00eb 01       		.byte	0x1
+ 754 00ec 5F000000 		.4byte	.LASF15
+ 755 00f0 01       		.byte	0x1
+ 756 00f1 50       		.byte	0x50
+ 757 00f2 00000000 		.4byte	.LFB31
+ 758 00f6 9E010000 		.4byte	.LFE31
+ 759 00fa 6E000000 		.4byte	.LLST2
+ 760 00fe 29010000 		.4byte	0x129
+ 761 0102 07       		.uleb128 0x7
+ 762 0103 6A00     		.ascii	"j\000"
+ 763 0105 01       		.byte	0x1
+ 764 0106 53       		.byte	0x53
+ 765 0107 61000000 		.4byte	0x61
+ 766 010b 02       		.byte	0x2
+ 767 010c 91       		.byte	0x91
+ 768 010d 6C       		.sleb128 -20
+ 769 010e 07       		.uleb128 0x7
+ 770 010f 6900     		.ascii	"i\000"
+ 771 0111 01       		.byte	0x1
+ 772 0112 54       		.byte	0x54
+ 773 0113 61000000 		.4byte	0x61
+ 774 0117 02       		.byte	0x2
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 18
+
+
+ 775 0118 91       		.byte	0x91
+ 776 0119 70       		.sleb128 -16
+ 777 011a 08       		.uleb128 0x8
+ 778 011b 44000000 		.4byte	.LASF16
+ 779 011f 01       		.byte	0x1
+ 780 0120 55       		.byte	0x55
+ 781 0121 6F000000 		.4byte	0x6f
+ 782 0125 02       		.byte	0x2
+ 783 0126 91       		.byte	0x91
+ 784 0127 77       		.sleb128 -9
+ 785 0128 00       		.byte	0x0
+ 786 0129 06       		.uleb128 0x6
+ 787 012a 01       		.byte	0x1
+ 788 012b 39000000 		.4byte	.LASF17
+ 789 012f 01       		.byte	0x1
+ 790 0130 91       		.byte	0x91
+ 791 0131 00000000 		.4byte	.LFB32
+ 792 0135 CE000000 		.4byte	.LFE32
+ 793 0139 A5000000 		.4byte	.LLST3
+ 794 013d 69010000 		.4byte	0x169
+ 795 0141 07       		.uleb128 0x7
+ 796 0142 6A00     		.ascii	"j\000"
+ 797 0144 01       		.byte	0x1
+ 798 0145 93       		.byte	0x93
+ 799 0146 61000000 		.4byte	0x61
+ 800 014a 02       		.byte	0x2
+ 801 014b 91       		.byte	0x91
+ 802 014c 70       		.sleb128 -16
+ 803 014d 07       		.uleb128 0x7
+ 804 014e 6900     		.ascii	"i\000"
+ 805 0150 01       		.byte	0x1
+ 806 0151 94       		.byte	0x94
+ 807 0152 61000000 		.4byte	0x61
+ 808 0156 02       		.byte	0x2
+ 809 0157 91       		.byte	0x91
+ 810 0158 74       		.sleb128 -12
+ 811 0159 08       		.uleb128 0x8
+ 812 015a A7000000 		.4byte	.LASF18
+ 813 015e 01       		.byte	0x1
+ 814 015f 95       		.byte	0x95
+ 815 0160 69010000 		.4byte	0x169
+ 816 0164 03       		.byte	0x3
+ 817 0165 91       		.byte	0x91
+ 818 0166 B07F     		.sleb128 -80
+ 819 0168 00       		.byte	0x0
+ 820 0169 09       		.uleb128 0x9
+ 821 016a 6F000000 		.4byte	0x6f
+ 822 016e 79010000 		.4byte	0x179
+ 823 0172 0A       		.uleb128 0xa
+ 824 0173 8F000000 		.4byte	0x8f
+ 825 0177 3F       		.byte	0x3f
+ 826 0178 00       		.byte	0x0
+ 827 0179 0B       		.uleb128 0xb
+ 828 017a E9000000 		.4byte	.LASF19
+ 829 017e 02       		.byte	0x2
+ 830 017f CE06     		.2byte	0x6ce
+ 831 0181 87010000 		.4byte	0x187
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 19
+
+
+ 832 0185 01       		.byte	0x1
+ 833 0186 01       		.byte	0x1
+ 834 0187 0C       		.uleb128 0xc
+ 835 0188 61000000 		.4byte	0x61
+ 836 018c 09       		.uleb128 0x9
+ 837 018d 68000000 		.4byte	0x68
+ 838 0191 A2010000 		.4byte	0x1a2
+ 839 0195 0A       		.uleb128 0xa
+ 840 0196 8F000000 		.4byte	0x8f
+ 841 019a 07       		.byte	0x7
+ 842 019b 0A       		.uleb128 0xa
+ 843 019c 8F000000 		.4byte	0x8f
+ 844 01a0 07       		.byte	0x7
+ 845 01a1 00       		.byte	0x0
+ 846 01a2 0D       		.uleb128 0xd
+ 847 01a3 7F000000 		.4byte	.LASF20
+ 848 01a7 01       		.byte	0x1
+ 849 01a8 07       		.byte	0x7
+ 850 01a9 8C010000 		.4byte	0x18c
+ 851 01ad 01       		.byte	0x1
+ 852 01ae 05       		.byte	0x5
+ 853 01af 03       		.byte	0x3
+ 854 01b0 00000000 		.4byte	averages
+ 855 01b4 00       		.byte	0x0
+ 856              		.section	.debug_abbrev
+ 857 0000 01       		.uleb128 0x1
+ 858 0001 11       		.uleb128 0x11
+ 859 0002 01       		.byte	0x1
+ 860 0003 25       		.uleb128 0x25
+ 861 0004 0E       		.uleb128 0xe
+ 862 0005 13       		.uleb128 0x13
+ 863 0006 0B       		.uleb128 0xb
+ 864 0007 03       		.uleb128 0x3
+ 865 0008 0E       		.uleb128 0xe
+ 866 0009 1B       		.uleb128 0x1b
+ 867 000a 0E       		.uleb128 0xe
+ 868 000b 11       		.uleb128 0x11
+ 869 000c 01       		.uleb128 0x1
+ 870 000d 52       		.uleb128 0x52
+ 871 000e 01       		.uleb128 0x1
+ 872 000f 55       		.uleb128 0x55
+ 873 0010 06       		.uleb128 0x6
+ 874 0011 10       		.uleb128 0x10
+ 875 0012 06       		.uleb128 0x6
+ 876 0013 00       		.byte	0x0
+ 877 0014 00       		.byte	0x0
+ 878 0015 02       		.uleb128 0x2
+ 879 0016 24       		.uleb128 0x24
+ 880 0017 00       		.byte	0x0
+ 881 0018 0B       		.uleb128 0xb
+ 882 0019 0B       		.uleb128 0xb
+ 883 001a 3E       		.uleb128 0x3e
+ 884 001b 0B       		.uleb128 0xb
+ 885 001c 03       		.uleb128 0x3
+ 886 001d 0E       		.uleb128 0xe
+ 887 001e 00       		.byte	0x0
+ 888 001f 00       		.byte	0x0
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 20
+
+
+ 889 0020 03       		.uleb128 0x3
+ 890 0021 24       		.uleb128 0x24
+ 891 0022 00       		.byte	0x0
+ 892 0023 0B       		.uleb128 0xb
+ 893 0024 0B       		.uleb128 0xb
+ 894 0025 3E       		.uleb128 0x3e
+ 895 0026 0B       		.uleb128 0xb
+ 896 0027 03       		.uleb128 0x3
+ 897 0028 08       		.uleb128 0x8
+ 898 0029 00       		.byte	0x0
+ 899 002a 00       		.byte	0x0
+ 900 002b 04       		.uleb128 0x4
+ 901 002c 16       		.uleb128 0x16
+ 902 002d 00       		.byte	0x0
+ 903 002e 03       		.uleb128 0x3
+ 904 002f 0E       		.uleb128 0xe
+ 905 0030 3A       		.uleb128 0x3a
+ 906 0031 0B       		.uleb128 0xb
+ 907 0032 3B       		.uleb128 0x3b
+ 908 0033 0B       		.uleb128 0xb
+ 909 0034 49       		.uleb128 0x49
+ 910 0035 13       		.uleb128 0x13
+ 911 0036 00       		.byte	0x0
+ 912 0037 00       		.byte	0x0
+ 913 0038 05       		.uleb128 0x5
+ 914 0039 24       		.uleb128 0x24
+ 915 003a 00       		.byte	0x0
+ 916 003b 0B       		.uleb128 0xb
+ 917 003c 0B       		.uleb128 0xb
+ 918 003d 3E       		.uleb128 0x3e
+ 919 003e 0B       		.uleb128 0xb
+ 920 003f 00       		.byte	0x0
+ 921 0040 00       		.byte	0x0
+ 922 0041 06       		.uleb128 0x6
+ 923 0042 2E       		.uleb128 0x2e
+ 924 0043 01       		.byte	0x1
+ 925 0044 3F       		.uleb128 0x3f
+ 926 0045 0C       		.uleb128 0xc
+ 927 0046 03       		.uleb128 0x3
+ 928 0047 0E       		.uleb128 0xe
+ 929 0048 3A       		.uleb128 0x3a
+ 930 0049 0B       		.uleb128 0xb
+ 931 004a 3B       		.uleb128 0x3b
+ 932 004b 0B       		.uleb128 0xb
+ 933 004c 11       		.uleb128 0x11
+ 934 004d 01       		.uleb128 0x1
+ 935 004e 12       		.uleb128 0x12
+ 936 004f 01       		.uleb128 0x1
+ 937 0050 40       		.uleb128 0x40
+ 938 0051 06       		.uleb128 0x6
+ 939 0052 01       		.uleb128 0x1
+ 940 0053 13       		.uleb128 0x13
+ 941 0054 00       		.byte	0x0
+ 942 0055 00       		.byte	0x0
+ 943 0056 07       		.uleb128 0x7
+ 944 0057 34       		.uleb128 0x34
+ 945 0058 00       		.byte	0x0
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 21
+
+
+ 946 0059 03       		.uleb128 0x3
+ 947 005a 08       		.uleb128 0x8
+ 948 005b 3A       		.uleb128 0x3a
+ 949 005c 0B       		.uleb128 0xb
+ 950 005d 3B       		.uleb128 0x3b
+ 951 005e 0B       		.uleb128 0xb
+ 952 005f 49       		.uleb128 0x49
+ 953 0060 13       		.uleb128 0x13
+ 954 0061 02       		.uleb128 0x2
+ 955 0062 0A       		.uleb128 0xa
+ 956 0063 00       		.byte	0x0
+ 957 0064 00       		.byte	0x0
+ 958 0065 08       		.uleb128 0x8
+ 959 0066 34       		.uleb128 0x34
+ 960 0067 00       		.byte	0x0
+ 961 0068 03       		.uleb128 0x3
+ 962 0069 0E       		.uleb128 0xe
+ 963 006a 3A       		.uleb128 0x3a
+ 964 006b 0B       		.uleb128 0xb
+ 965 006c 3B       		.uleb128 0x3b
+ 966 006d 0B       		.uleb128 0xb
+ 967 006e 49       		.uleb128 0x49
+ 968 006f 13       		.uleb128 0x13
+ 969 0070 02       		.uleb128 0x2
+ 970 0071 0A       		.uleb128 0xa
+ 971 0072 00       		.byte	0x0
+ 972 0073 00       		.byte	0x0
+ 973 0074 09       		.uleb128 0x9
+ 974 0075 01       		.uleb128 0x1
+ 975 0076 01       		.byte	0x1
+ 976 0077 49       		.uleb128 0x49
+ 977 0078 13       		.uleb128 0x13
+ 978 0079 01       		.uleb128 0x1
+ 979 007a 13       		.uleb128 0x13
+ 980 007b 00       		.byte	0x0
+ 981 007c 00       		.byte	0x0
+ 982 007d 0A       		.uleb128 0xa
+ 983 007e 21       		.uleb128 0x21
+ 984 007f 00       		.byte	0x0
+ 985 0080 49       		.uleb128 0x49
+ 986 0081 13       		.uleb128 0x13
+ 987 0082 2F       		.uleb128 0x2f
+ 988 0083 0B       		.uleb128 0xb
+ 989 0084 00       		.byte	0x0
+ 990 0085 00       		.byte	0x0
+ 991 0086 0B       		.uleb128 0xb
+ 992 0087 34       		.uleb128 0x34
+ 993 0088 00       		.byte	0x0
+ 994 0089 03       		.uleb128 0x3
+ 995 008a 0E       		.uleb128 0xe
+ 996 008b 3A       		.uleb128 0x3a
+ 997 008c 0B       		.uleb128 0xb
+ 998 008d 3B       		.uleb128 0x3b
+ 999 008e 05       		.uleb128 0x5
+ 1000 008f 49       		.uleb128 0x49
+ 1001 0090 13       		.uleb128 0x13
+ 1002 0091 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 22
+
+
+ 1003 0092 0C       		.uleb128 0xc
+ 1004 0093 3C       		.uleb128 0x3c
+ 1005 0094 0C       		.uleb128 0xc
+ 1006 0095 00       		.byte	0x0
+ 1007 0096 00       		.byte	0x0
+ 1008 0097 0C       		.uleb128 0xc
+ 1009 0098 35       		.uleb128 0x35
+ 1010 0099 00       		.byte	0x0
+ 1011 009a 49       		.uleb128 0x49
+ 1012 009b 13       		.uleb128 0x13
+ 1013 009c 00       		.byte	0x0
+ 1014 009d 00       		.byte	0x0
+ 1015 009e 0D       		.uleb128 0xd
+ 1016 009f 34       		.uleb128 0x34
+ 1017 00a0 00       		.byte	0x0
+ 1018 00a1 03       		.uleb128 0x3
+ 1019 00a2 0E       		.uleb128 0xe
+ 1020 00a3 3A       		.uleb128 0x3a
+ 1021 00a4 0B       		.uleb128 0xb
+ 1022 00a5 3B       		.uleb128 0x3b
+ 1023 00a6 0B       		.uleb128 0xb
+ 1024 00a7 49       		.uleb128 0x49
+ 1025 00a8 13       		.uleb128 0x13
+ 1026 00a9 3F       		.uleb128 0x3f
+ 1027 00aa 0C       		.uleb128 0xc
+ 1028 00ab 02       		.uleb128 0x2
+ 1029 00ac 0A       		.uleb128 0xa
+ 1030 00ad 00       		.byte	0x0
+ 1031 00ae 00       		.byte	0x0
+ 1032 00af 00       		.byte	0x0
+ 1033              		.section	.debug_pubnames,"",%progbits
+ 1034 0000 5E000000 		.4byte	0x5e
+ 1035 0004 0200     		.2byte	0x2
+ 1036 0006 00000000 		.4byte	.Ldebug_info0
+ 1037 000a B5010000 		.4byte	0x1b5
+ 1038 000e 92000000 		.4byte	0x92
+ 1039 0012 696E6974 		.ascii	"initAvgs\000"
+ 1039      41766773 
+ 1039      00
+ 1040 001b C3000000 		.4byte	0xc3
+ 1041 001f 6D61696E 		.ascii	"main\000"
+ 1041      00
+ 1042 0024 EA000000 		.4byte	0xea
+ 1043 0028 73746F72 		.ascii	"storeAndCalculateAverages\000"
+ 1043      65416E64 
+ 1043      43616C63 
+ 1043      756C6174 
+ 1043      65417665 
+ 1044 0042 29010000 		.4byte	0x129
+ 1045 0046 73656E64 		.ascii	"sendValues\000"
+ 1045      56616C75 
+ 1045      657300
+ 1046 0051 A2010000 		.4byte	0x1a2
+ 1047 0055 61766572 		.ascii	"averages\000"
+ 1047      61676573 
+ 1047      00
+ 1048 005e 00000000 		.4byte	0x0
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 23
+
+
+ 1049              		.section	.debug_aranges,"",%progbits
+ 1050 0000 34000000 		.4byte	0x34
+ 1051 0004 0200     		.2byte	0x2
+ 1052 0006 00000000 		.4byte	.Ldebug_info0
+ 1053 000a 04       		.byte	0x4
+ 1054 000b 00       		.byte	0x0
+ 1055 000c 0000     		.2byte	0x0
+ 1056 000e 0000     		.2byte	0x0
+ 1057 0010 00000000 		.4byte	.LFB29
+ 1058 0014 62000000 		.4byte	.LFE29-.LFB29
+ 1059 0018 00000000 		.4byte	.LFB30
+ 1060 001c C2000000 		.4byte	.LFE30-.LFB30
+ 1061 0020 00000000 		.4byte	.LFB31
+ 1062 0024 9E010000 		.4byte	.LFE31-.LFB31
+ 1063 0028 00000000 		.4byte	.LFB32
+ 1064 002c CE000000 		.4byte	.LFE32-.LFB32
+ 1065 0030 00000000 		.4byte	0x0
+ 1066 0034 00000000 		.4byte	0x0
+ 1067              		.section	.debug_ranges,"",%progbits
+ 1068              	.Ldebug_ranges0:
+ 1069 0000 00000000 		.4byte	.Ltext0
+ 1070 0004 00000000 		.4byte	.Letext0
+ 1071 0008 00000000 		.4byte	.LFB29
+ 1072 000c 62000000 		.4byte	.LFE29
+ 1073 0010 00000000 		.4byte	.LFB30
+ 1074 0014 C2000000 		.4byte	.LFE30
+ 1075 0018 00000000 		.4byte	.LFB31
+ 1076 001c 9E010000 		.4byte	.LFE31
+ 1077 0020 00000000 		.4byte	.LFB32
+ 1078 0024 CE000000 		.4byte	.LFE32
+ 1079 0028 00000000 		.4byte	0x0
+ 1080 002c 00000000 		.4byte	0x0
+ 1081              		.section	.debug_str,"MS",%progbits,1
+ 1082              	.LASF6:
+ 1083 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1083      206C6F6E 
+ 1083      6720696E 
+ 1083      7400
+ 1084              	.LASF3:
+ 1085 000e 73686F72 		.ascii	"short unsigned int\000"
+ 1085      7420756E 
+ 1085      7369676E 
+ 1085      65642069 
+ 1085      6E7400
+ 1086              	.LASF8:
+ 1087 0021 756E7369 		.ascii	"unsigned int\000"
+ 1087      676E6564 
+ 1087      20696E74 
+ 1087      00
+ 1088              	.LASF13:
+ 1089 002e 6D61696E 		.ascii	"main\000"
+ 1089      00
+ 1090              	.LASF24:
+ 1091 0033 75696E74 		.ascii	"uint8\000"
+ 1091      3800
+ 1092              	.LASF17:
+ 1093 0039 73656E64 		.ascii	"sendValues\000"
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 24
+
+
+ 1093      56616C75 
+ 1093      657300
+ 1094              	.LASF16:
+ 1095 0044 72656164 		.ascii	"readchar\000"
+ 1095      63686172 
+ 1095      00
+ 1096              	.LASF5:
+ 1097 004d 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1097      20756E73 
+ 1097      69676E65 
+ 1097      6420696E 
+ 1097      7400
+ 1098              	.LASF15:
+ 1099 005f 73746F72 		.ascii	"storeAndCalculateAverages\000"
+ 1099      65416E64 
+ 1099      43616C63 
+ 1099      756C6174 
+ 1099      65417665 
+ 1100              	.LASF9:
+ 1101 0079 666C6F61 		.ascii	"float\000"
+ 1101      7400
+ 1102              	.LASF20:
+ 1103 007f 61766572 		.ascii	"averages\000"
+ 1103      61676573 
+ 1103      00
+ 1104              	.LASF21:
+ 1105 0088 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1105      4320342E 
+ 1105      342E3100 
+ 1106              	.LASF1:
+ 1107 0094 756E7369 		.ascii	"unsigned char\000"
+ 1107      676E6564 
+ 1107      20636861 
+ 1107      7200
+ 1108              	.LASF11:
+ 1109 00a2 63686172 		.ascii	"char\000"
+ 1109      00
+ 1110              	.LASF18:
+ 1111 00a7 73656E64 		.ascii	"sendArray\000"
+ 1111      41727261 
+ 1111      7900
+ 1112              	.LASF4:
+ 1113 00b1 6C6F6E67 		.ascii	"long int\000"
+ 1113      20696E74 
+ 1113      00
+ 1114              	.LASF7:
+ 1115 00ba 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1115      206C6F6E 
+ 1115      6720756E 
+ 1115      7369676E 
+ 1115      65642069 
+ 1116              	.LASF22:
+ 1117 00d1 2E5C6D61 		.ascii	".\\main.c\000"
+ 1117      696E2E63 
+ 1117      00
+ 1118              	.LASF10:
+ 1119 00da 646F7562 		.ascii	"double\000"
+ARM GAS  C:\Users\rmcgarel\AppData\Local\Temp\ccNOJeJm.s 			page 25
+
+
+ 1119      6C6500
+ 1120              	.LASF14:
+ 1121 00e1 636F756E 		.ascii	"counter\000"
+ 1121      74657200 
+ 1122              	.LASF19:
+ 1123 00e9 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1123      52784275 
+ 1123      66666572 
+ 1123      00
+ 1124              	.LASF0:
+ 1125 00f6 7369676E 		.ascii	"signed char\000"
+ 1125      65642063 
+ 1125      68617200 
+ 1126              	.LASF2:
+ 1127 0102 73686F72 		.ascii	"short int\000"
+ 1127      7420696E 
+ 1127      7400
+ 1128              	.LASF12:
+ 1129 010c 696E6974 		.ascii	"initAvgs\000"
+ 1129      41766773 
+ 1129      00
+ 1130              	.LASF23:
+ 1131 0115 433A5C47 		.ascii	"C:\\Group4_Spring2013\\Final Project\\UART\\UART.cy"
+ 1131      726F7570 
+ 1131      345F5370 
+ 1131      72696E67 
+ 1131      32303133 
+ 1132 0144 64736E00 		.ascii	"dsn\000"
+ 1133              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
